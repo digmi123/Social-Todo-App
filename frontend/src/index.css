@@ -60,6 +60,10 @@ body {
     color: var(--color-dark);
     background-color: var(--color-background);
 }
+.root{
+    height: 100vh;
+    height: 100dvh;
+}
 
 a {
     color: var(--color-dark);
