@@ -8,7 +8,7 @@ export default function FriendsList({ friends }) {
       {friends.map((friend) => (
         <div
           key={friend.id}
-          className="flex items-center justify-between gap-4 border-2 border-slate-300 rounded-md p-2"
+          className="flex items-center justify-between gap-4 rounded-md p-2"
         >
           <div className="flex gap-4 items-center">
             <span className="material-icons-sharp">account_circle</span>
