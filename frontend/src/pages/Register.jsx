@@ -13,7 +13,7 @@ export default function Register() {
       password: formData.get("password"),
     };
     axios
-      .post("/api/register/", data)
+      .post("/api/auth/register/", data)
       .then(() => {
         navigate("/auth/login");
       })
@@ -24,28 +24,36 @@ export default function Register() {
 
   return (
     <form
-      className="flex flex-col p-6 gap-4 border-2 border-slate-300 rounded-md min-w-96"
+      className="flex flex-col p-6 gap-4 min-w-96 border border-slate-500 bg-color-white shadow-box-shadow rounded-xl"
       onSubmit={handleSubmit}
     >
-      <h1 className="font-bold text-3xl">Register</h1>
+      <h1 className="font-bold text-3xl text-color-danger self-center">
+        Register
+      </h1>
 
-      <label>Email</label>
-      <input type="email" className="border-2 border-slate-300" name="email" />
+      <label className="font-medium text-xl text-color-primary">Email</label>
+      <input
+        type="email"
+        className="p-1 border-2 border-solid border-slate-300 rounded-md flex-1 px-2 py-2 shadow-box-shadow"
+        name="email"
+      />
 
-      <label>Username</label>
+      <label className="font-medium text-xl text-color-primary">Username</label>
       <input
         type="text"
-        className="border-2 border-slate-300"
+        className="p-1 border-2 border-solid border-slate-300 rounded-md flex-1 px-2 py-2 shadow-box-shadow"
         name="username"
       />
 
-      <label>Password</label>
+      <label className="font-medium text-xl text-color-primary">Password</label>
       <input
         type="password"
-        className="border-2 border-slate-300"
+        className="p-1 border-2 border-solid border-slate-300 rounded-md flex-1 px-2 py-2 shadow-box-shadow"
         name="password"
       />
-      <button>Register</button>
+      <button className="bg-color-success px-2 py-1 rounded-md text-color-white">
+        Register
+      </button>
 
       <p>
         Already have an account?

@@ -13,7 +13,7 @@ export default function FriendSection() {
     e.preventDefault();
     const searched_username = e.target.search.value;
     axios
-      .post("/api/get_users_by_search/", {
+      .post("/api/user/get_users_by_search/", {
         searched_username,
       })
       .then((response) => {
@@ -24,18 +24,24 @@ export default function FriendSection() {
   if (loading) return <h1>Loading</h1>;
 
   return (
-    <aside className="flex flex-col gap-4 border-2 border-slate-200 px-4 bg-color-white shadow-box-shadow rounded-xl">
-      <div className="mt-4">
-        <form onSubmit={handleSearch} className="flex gap-4">
-          <input
-            type="text"
-            name="search"
-            placeholder="Search for new friends"
-            className="p-1"
-          />
-          <button type="submit">Search</button>
-        </form>
-      </div>
+    <aside className="flex flex-col gap-4 bg-color-white shadow-box-shadow rounded-xl p-4">
+      <form
+        onSubmit={handleSearch}
+        className="flex justify-between gap-4 border-2 border-solid border-slate-300 rounded-md shadow-box-shadow px-2 py-1"
+      >
+        <input
+          type="text"
+          name="search"
+          placeholder="Search for new friends"
+          className="p-1"
+        />
+        <button
+          type="submit"
+          className="bg-color-success px-2 py-1 rounded-md text-color-white"
+        >
+          Search
+        </button>
+      </form>
 
       {searchedUsers.length > 0 && (
         <>

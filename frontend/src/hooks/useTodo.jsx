@@ -1,22 +1,28 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useUser } from "../providers/UserProvider";
 
 export default function useTodo({ todoId }) {
+  const { userInfo } = useUser();
   const [loading, setLoading] = useState(true);
   const [todo, setTodo] = useState({});
 
-  // const optimisticComment = (comment) => {
-  //   setTodo((prev) => {
-  //     return {
-  //       ...prev,
-  //       comments: [...prev.comments, { message }],
-  //     };
-  //   });
-  // };
+  const addComment = (data) => {
+    axios.post("/api/todos/comment_todo/", data);
+    setTodo((prev) => {
+      return {
+        ...prev,
+        comments: [
+          ...prev.comments,
+          { message: data.message, user: userInfo.user },
+        ],
+      };
+    });
+  };
 
   useEffect(() => {
     axios
-      .get(`/api/getTodo/${todoId}`)
+      .get(`/api/todos/getTodo/${todoId}`)
       .then((response) => {
         setTodo(response.data);
       })
@@ -28,5 +34,5 @@ export default function useTodo({ todoId }) {
       });
   }, [todoId]);
 
-  return { loading, todo };
+  return { loading, todo, addComment };
 }

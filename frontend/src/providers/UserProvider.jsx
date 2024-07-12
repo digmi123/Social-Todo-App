@@ -14,7 +14,7 @@ export default function UserProvider({ children }) {
 
   const acceptFriendRequest = (friend_request) => {
     axios
-      .post("/api/accept_friend_request/", {
+      .post("/api/user/accept_friend_request/", {
         friend_request_id: friend_request.id,
       })
       .catch((error) => {
@@ -35,7 +35,7 @@ export default function UserProvider({ children }) {
 
   const getUserInfo = useCallback(() => {
     axios
-      .get("/api/getUserInfo/")
+      .get("/api/user/getUserInfo/")
       .then((response) => {
         setUserInfo(response.data);
       })
