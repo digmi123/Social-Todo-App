@@ -25,38 +25,12 @@ class FriendSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class LikeSerializer(serializers.ModelSerializer):
-    user = UserSerializer(read_only=True)
-    todo = serializers.PrimaryKeyRelatedField(queryset=Todo.objects.all())
-
-    class Meta:
-        model = Like
-        fields = "__all__"
-
-    def create(self, validated_data):
-        validated_data["user"] = self.context["request"].user
-        return super().create(validated_data)
-
-
 class CommentSerializer(serializers.ModelSerializer):
     user = UserSerializer(read_only=True)
     todo = serializers.PrimaryKeyRelatedField(queryset=Todo.objects.all())
 
     class Meta:
         model = Comment
-        fields = "__all__"
-
-    def create(self, validated_data):
-        validated_data["user"] = self.context["request"].user
-        return super().create(validated_data)
-
-
-class SavedSerializer(serializers.ModelSerializer):
-    user = UserSerializer(read_only=True)
-    todo = serializers.PrimaryKeyRelatedField(queryset=Todo.objects.all())
-
-    class Meta:
-        model = Saved
         fields = "__all__"
 
     def create(self, validated_data):
@@ -74,4 +48,30 @@ class TodoSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         validated_data["creator"] = self.context["request"].user
+        return super().create(validated_data)
+
+
+class LikeSerializer(serializers.ModelSerializer):
+    user = UserSerializer(read_only=True)
+    todo = TodoSerializer(read_only=True)
+
+    class Meta:
+        model = Like
+        fields = "__all__"
+
+    def create(self, validated_data):
+        validated_data["user"] = self.context["request"].user
+        return super().create(validated_data)
+
+
+class SavedSerializer(serializers.ModelSerializer):
+    user = UserSerializer(read_only=True)
+    todo = TodoSerializer(read_only=True)
+
+    class Meta:
+        model = Saved
+        fields = "__all__"
+
+    def create(self, validated_data):
+        validated_data["user"] = self.context["request"].user
         return super().create(validated_data)
