@@ -10,7 +10,7 @@ export default function FriendRequests({ friend_requests }) {
           {friend_requests.map((friendRequest) => (
             <form
               key={friendRequest.id}
-              className="flex items-center justify-between gap-4 border-2 border-slate-200 rounded-md p-2"
+              className="flex items-center justify-between gap-4 border-2 border-solid border-slate-200 rounded-md p-2"
               onSubmit={() => acceptFriendRequest(friendRequest)}
             >
               <div className="flex gap-4 items-center">
