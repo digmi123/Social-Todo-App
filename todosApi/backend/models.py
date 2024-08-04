@@ -35,7 +35,7 @@ class Like(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     todo = models.ForeignKey(Todo, related_name="likes", on_delete=models.CASCADE)
     is_read = models.BooleanField(default=False)
-    liked_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True)
 
 
 class Comment(models.Model):
@@ -43,11 +43,11 @@ class Comment(models.Model):
     todo = models.ForeignKey(Todo, related_name="comments", on_delete=models.CASCADE)
     message = models.CharField(max_length=200, null=True)
     is_read = models.BooleanField(default=False)
-    commented_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True)
 
 
 class Saved(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     todo = models.ForeignKey(Todo, related_name="saved", on_delete=models.CASCADE)
     is_read = models.BooleanField(default=False)
-    saved_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True)
