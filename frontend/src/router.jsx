@@ -1,5 +1,4 @@
 import { createBrowserRouter } from "react-router-dom";
-import MainLayout from "./layouts/MainLayout";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import AuthLayout from "./layouts/AuthLayout";
@@ -10,6 +9,7 @@ import FriendSection from "./components/FriendsSection";
 import NotificationsBar from "./components/NotificationsBar";
 import SavedTodos from "./components/SavedTodos";
 import Favorites from "./components/Favorites";
+import EditTodo from "./pages/EditTodo";
 
 const router = createBrowserRouter([
   {
@@ -25,6 +25,16 @@ const router = createBrowserRouter([
   {
     path: "create_todo",
     element: <CreateTodo />,
+    children: [
+      { element: <div></div>, index: true },
+      { path: "friends", element: <FriendSection /> },
+      { path: "notifications", element: <NotificationsBar /> },
+      // { path: "/settings", element: <FriendSection /> },
+    ],
+  },
+  {
+    path: "edit_todo/:todo_id",
+    element: <EditTodo />,
     children: [
       { element: <div></div>, index: true },
       { path: "friends", element: <FriendSection /> },
@@ -79,39 +89,3 @@ const router = createBrowserRouter([
 ]);
 
 export default router;
-
-// {
-//   element: <MainLayout />,
-//   children: [
-//     {
-//       path: "todos",
-//       element: <Todos />,
-//       children: [
-//         { element: <div></div>, index: true },
-//         { path: "friends", element: <FriendSection /> },
-//         { path: "notifications", element: <NotificationsBar /> },
-//         // { path: "/settings", element: <FriendSection /> },
-//       ],
-//     },
-//     {
-//       path: "create_todo",
-//       element: <CreateTodo />,
-//       children: [
-//         { element: <div></div>, index: true },
-//         { path: "friends", element: <FriendSection /> },
-//         { path: "notifications", element: <NotificationsBar /> },
-//         // { path: "/settings", element: <FriendSection /> },
-//       ],
-//     },
-//     {
-//       path: "todo/:todo_id",
-//       element: <Todo />,
-//       children: [
-//         { element: <div></div>, index: true },
-//         { path: "friends", element: <FriendSection /> },
-//         { path: "notifications", element: <NotificationsBar /> },
-//         // { path: "/settings", element: <FriendSection /> },
-//       ],
-//     },
-//   ],
-// },
