@@ -2,10 +2,11 @@ import axios from "axios";
 import Heart from "../assets/heart.svg?react";
 import Bookmark from "../assets/bookmark.svg?react";
 import { useUser } from "../providers/UserProvider";
+import { useNavigate } from "react-router-dom";
 
 export default function TodoCard({ todo, deleteTodo }) {
+  const navigate = useNavigate();
   const { userInfo, loading } = useUser();
-  console.log(userInfo);
   const handleLike = () => {
     axios.post("/api/todos/like_todo/", {
       todo_id: todo.id,
@@ -50,6 +51,7 @@ export default function TodoCard({ todo, deleteTodo }) {
       <div className="flex w-full justify-end gap-4">
         <button
           className="min-w-6 bg-color-primary px-2 py-1 rounded-md text-color-white"
+          onClick={() => navigate(`/edit_todo/${todo.id}`)}
           hidden={userInfo.user.email !== todo.creator.email}
         >
           Edit
