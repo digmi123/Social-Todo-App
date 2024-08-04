@@ -24,7 +24,7 @@ export default function CreateTodo() {
             className="flex flex-col p-6 gap-4 min-w-96 border border-slate-500 bg-color-white shadow-box-shadow rounded-xl"
             onSubmit={handleSubmit()}
           >
-            <h1 className="font-bold text-3xl text-color-danger self-center">
+            <h1 className="font-bold text-3xl text-color-danger self-center uppercase">
               Create Todo
             </h1>
 
