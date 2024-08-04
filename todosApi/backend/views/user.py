@@ -39,7 +39,10 @@ def getUserNotifications(user):
     comments = Comment.objects.filter(todo__creator=user)
     comments_serializer = CommentSerializer(comments, many=True)
 
-    return {"likes": user_likes_serializer.data, "comments": comments_serializer.data}
+    notifications = user_likes_serializer.data + comments_serializer.data
+    notifications.sort(key=lambda x: x["created_at"], reverse=True)
+
+    return notifications
 
 
 @api_view(["GET"])
