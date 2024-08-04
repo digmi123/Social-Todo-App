@@ -1,7 +1,9 @@
 import axios from "axios";
+import { useRef } from "react";
 import { useParams } from "react-router-dom";
 
 export default function Comments({ comments, addComment }) {
+  const formRef = useRef(null);
   const { todo_id } = useParams();
 
   const handleComment = () => (event) => {
@@ -11,12 +13,13 @@ export default function Comments({ comments, addComment }) {
       message: event.target.comment.value,
     };
     addComment(data);
+    formRef.current.reset();
     axios.post("/api/user/comment_todo/", data);
   };
   return (
     <>
       <div>
-        <form className="flex gap-4" onSubmit={handleComment()}>
+        <form className="flex gap-4" onSubmit={handleComment()} ref={formRef}>
           <input
             type="text"
             name="comment"
