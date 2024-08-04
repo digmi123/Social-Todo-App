@@ -2,6 +2,7 @@ import axios from "axios";
 import { Outlet, useNavigate, useParams } from "react-router-dom";
 import SideBar from "../components/SideBar";
 import useTodo from "../hooks/useTodo";
+import Loader from "./Loader";
 
 export default function EditTodo() {
   const navigate = useNavigate();
@@ -10,14 +11,14 @@ export default function EditTodo() {
     todoId: todo_id,
   });
 
-  if (loading) return <h1>Loading</h1>;
+  if (loading) return <Loader />;
   const handleSubmit = () => (event) => {
     event.preventDefault();
     const data = {
       todo_title: event.target.todo_title.value,
       todo_description: event.target.todo_description.value,
     };
-    axios.post("/api/todos/update_todo/", data).then(() => {
+    axios.put(`/api/todos/update_todo/${todo_id}/`, data).then(() => {
       navigate("/todos");
     });
   };
@@ -31,7 +32,7 @@ export default function EditTodo() {
             className="flex flex-col p-6 gap-4 min-w-96 border border-slate-500 bg-color-white shadow-box-shadow rounded-xl"
             onSubmit={handleSubmit()}
           >
-            <h1 className="font-bold text-3xl text-color-danger self-center">
+            <h1 className="font-bold text-3xl text-color-danger self-center uppercase">
               Edit Todo
             </h1>
 

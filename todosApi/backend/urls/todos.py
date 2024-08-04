@@ -9,6 +9,7 @@ from ..views.todos import (
     save_todo,
     get_liked_todos,
     get_saved_todos,
+    update_todo,
 )
 
 urlpatterns = [
@@ -21,4 +22,5 @@ urlpatterns = [
     path("save_todo/", save_todo, name="save_todo"),
     path("get_liked_todos/", get_liked_todos, name="get_liked_todos"),
     path("get_saved_todos/", get_saved_todos, name="get_saved_todos"),
+    path("update_todo/<int:pk>/", update_todo, name="update_todo"),
 ]

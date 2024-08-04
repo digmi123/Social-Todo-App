@@ -39,8 +39,6 @@ def create_todo(request):
 @authentication_classes([CookieTokenAuthentication])
 @permission_classes([IsAuthenticated])
 def delete_todo(request, pk):
-    data = request
-    print(data)
     todo = Todo.objects.get(id=pk)
     todo.delete()
     return Response(status=status.HTTP_201_CREATED)
@@ -62,28 +60,9 @@ def get_all_todos(request):
 @authentication_classes([CookieTokenAuthentication])
 @permission_classes([IsAuthenticated])
 def get_todo(request, pk):
-    print("im here")
     todo_item = get_object_or_404(Todo, pk=pk)
-    print(todo_item)
     todo_serializer = TodoSerializer(todo_item)
-    print(todo_item)
     return Response(todo_serializer.data, status=status.HTTP_201_CREATED)
-
-
-@api_view(["POST"])
-@authentication_classes([CookieTokenAuthentication])
-@permission_classes([IsAuthenticated])
-def like_todo(request):
-    print("helloooo-----------------------")
-    print(request.data)
-    data = request.data
-    serializer = LikeSerializer(data=data, context={"request": request})
-    if serializer.is_valid():
-        serializer.save()
-        print(serializer.data)
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
-    print(serializer.errors)
-    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(["POST"])
@@ -93,11 +72,8 @@ def comment_todo(request):
     data = request.data
     serializer = CommentSerializer(data=data, context={"request": request})
     if serializer.is_valid():
-        print("valid")
         serializer.save()
-        print(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
-    print(serializer.errors)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -120,6 +96,7 @@ def save_todo(request):
 @authentication_classes([CookieTokenAuthentication])
 @permission_classes([IsAuthenticated])
 def like_todo(request):
+    print("second like")
     user = request.user
     todo = get_object_or_404(Todo, pk=request.data["todo_id"])
     like, created = Like.objects.get_or_create(user=user, todo=todo)
@@ -148,3 +125,22 @@ def get_saved_todos(request):
     saved_todos = Saved.objects.filter(user=user)
     saved_serializer = SavedSerializer(saved_todos, many=True)
     return Response(saved_serializer.data, status=status.HTTP_200_OK)
+
+
+@api_view(["PUT"])
+@authentication_classes([CookieTokenAuthentication])
+@permission_classes([IsAuthenticated])
+def update_todo(request, pk):
+    data = request.data
+    data["pub_date"] = datetime.now()
+    data["creator"] = request.user.id
+    todo_item = get_object_or_404(Todo, pk=pk)
+    serializer = TodoSerializer(todo_item, data=data)
+
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    else:
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    # return Response(saved_serializer.data, status=status.HTTP_200_OK)
