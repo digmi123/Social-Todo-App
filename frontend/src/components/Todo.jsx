@@ -13,7 +13,7 @@ export default function Todo() {
   if (loading) return <h1>Loading</h1>;
 
   return (
-    <div className="grid grid-cols-[1fr_3fr_1.5fr] gap-x-4 p-4 min-h-full">
+    <div className="grid grid-cols-[1fr_3fr_1.5fr] sm:grid-cols-[1fr] sm:grid-rows-[1fr] sm:gap-y-4 gap-x-4 p-4 min-h-full">
       <FriendSection />
       <main className="px-4">
         <div className="flex gap-4 items-center">
