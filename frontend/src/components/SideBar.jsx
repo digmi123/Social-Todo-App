@@ -35,8 +35,6 @@ const menuItems = [
 ];
 
 export default function SideBar() {
-  // const [active, setActive] = useState(0);
-
   const handleLogout = () => {
     axios.post("/api/auth/logout/");
   };
@@ -73,9 +71,6 @@ export default function SideBar() {
           <div className="sm:inline md:hidden">Logout</div>
         </NavLink>
       </div>
-
-      {/* Active class added */}
-      {/* <a className="flex items-center justify-center text-color-info-dark h-[3.5rem] gap-4 relative ease-in duration-300 text-color-primary bg-color-light"> */}
     </aside>
   );
 }
