@@ -1,25 +1,49 @@
+import PropTypes from "prop-types";
 import axios from "axios";
 import Heart from "../assets/heart.svg?react";
 import Bookmark from "../assets/bookmark.svg?react";
 import { useUser } from "../providers/UserProvider";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
-export default function TodoCard({ todo, deleteTodo }) {
+const timeOptions = {
+  weekday: "long",
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+};
+
+export default function TodoCard({ todo, onSave, onLike, onDelete }) {
+  const [isLiked, setIsLiked] = useState(todo.liked);
+  const [isSaved, setIsSaved] = useState(todo.saved);
+
+  const timeString = new Date(todo.pub_date).toLocaleString(
+    "en-US",
+    timeOptions
+  );
+
   const navigate = useNavigate();
-  const { userInfo, loading } = useUser();
+  const { userInfo } = useUser();
+
+  const handleDelete = () => {
+    if (onDelete) onDelete(todo);
+  };
+
   const handleLike = () => {
+    if (onLike) onLike(todo);
+    setIsLiked((prev) => !prev);
     axios.post("/api/todos/like_todo/", {
       todo_id: todo.id,
     });
   };
 
   const handleSave = () => {
+    if (onSave) onSave(todo);
+    setIsSaved((prev) => !prev);
     axios.post("/api/todos/save_todo/", {
       todo_id: todo.id,
     });
   };
-
-  if (loading) return <h1>Loading</h1>;
 
   return (
     <li
@@ -31,20 +55,26 @@ export default function TodoCard({ todo, deleteTodo }) {
           <a href={`/todo/${todo.id}`}> {todo.todo_title}</a>
         </h2>
         <div className="flex gap-1">
-          <label className="has-[:checked]:text-red-700 cursor-pointer">
+          <label>
             <input type="checkbox" hidden name="like" onChange={handleLike} />
-            <Heart />
+            <Heart
+              fill={isLiked ? "var(--color-liked)" : "#ffffff"}
+              stroke="currentColor"
+            />
           </label>
 
-          <label className="has-[:checked]:text-red-700 cursor-pointer">
+          <label>
             <input type="checkbox" hidden name="like" onChange={handleSave} />
-            <Bookmark />
+            <Bookmark
+              fill={isSaved ? "var(--color-saved)" : "#ffffff"}
+              stroke="currentColor"
+            />
           </label>
         </div>
       </div>
       <p>{todo.todo_description}</p>
       <div className="todo-info">
-        <strong>{todo.pub_date} ago</strong>
+        <strong>{timeString}</strong>
         <h3>@{todo.creator.username}</h3>
       </div>
 
@@ -52,14 +82,14 @@ export default function TodoCard({ todo, deleteTodo }) {
         <button
           className="min-w-6 bg-color-primary px-2 py-1 rounded-md text-color-white"
           onClick={() => navigate(`/edit_todo/${todo.id}`)}
-          hidden={userInfo.user.email !== todo.creator.email}
+          hidden={userInfo.user?.email !== todo.creator.email}
         >
           Edit
         </button>
         <button
           className="min-w-6 bg-color-danger px-2 py-1 rounded-md text-color-white"
-          onClick={() => deleteTodo(todo.id)}
-          hidden={userInfo.user.email !== todo.creator.email}
+          onClick={handleDelete}
+          hidden={userInfo.user?.email !== todo.creator.email}
         >
           Delete
         </button>
@@ -68,4 +98,9 @@ export default function TodoCard({ todo, deleteTodo }) {
   );
 }
 
-//userInfo.user.email === todo.creator.email
+TodoCard.propTypes = {
+  todo: PropTypes.object,
+  onSave: PropTypes.func,
+  onLike: PropTypes.func,
+  onDelete: PropTypes.func,
+};
