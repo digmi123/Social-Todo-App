@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 
+// FriendsList Component purpose its to display the friends of the current logged in user.
 export default function FriendsList({ friends }) {
   return (
     <>

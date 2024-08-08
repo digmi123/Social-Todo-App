@@ -1,6 +1,8 @@
 import { useUser } from "../providers/UserProvider";
 import Notification from "./Notification";
 
+// Component that iterates over the notifications we got from our backend data and display each notification
+// with the use of a single notification component.
 export default function NotificationsBar() {
   const { userInfo } = useUser();
 

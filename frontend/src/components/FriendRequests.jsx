@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import { useUser } from "../providers/UserProvider";
 
+// FriendsRequest component which display incoming requests if there is any.
 export default function FriendRequests({ friend_requests }) {
   const { acceptFriendRequest } = useUser();
   return (

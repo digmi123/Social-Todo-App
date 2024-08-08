@@ -34,6 +34,8 @@ const menuItems = [
   },
 ];
 
+// SideBar component which display each NavLink we want and responsible for navigating and the functionallity of each
+// link clicked.
 export default function SideBar() {
   const handleLogout = () => {
     axios.post("/api/auth/logout/");

@@ -3,6 +3,9 @@ import { useParams } from "react-router-dom";
 import Comment from "./Comment";
 import ComentForm from "../Forms/ComentForm";
 
+//  Comments compoennt which display the commentForm for submitting new comment,
+//  and iterate over the comments from the backend data to display single comment component for each one of them.
+
 export default function Comments({ comments, addComment }) {
   const { todo_id } = useParams();
 

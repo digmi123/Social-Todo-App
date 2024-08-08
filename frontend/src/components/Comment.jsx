@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 
+// Single comment component.
 export default function Comment({ comment }) {
   return (
     <div key={comment.id} className="flex gap-4 items-center">

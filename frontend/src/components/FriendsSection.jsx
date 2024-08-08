@@ -3,6 +3,8 @@ import FriendRequests from "./FriendRequests";
 import { useUser } from "../providers/UserProvider";
 import NewFriendsSearch from "./NewFriendsSearch";
 
+// This component acts as a wrapper for all the different components we need to display the friends list
+// and the functionallity for adding new friends and accepting requests.
 export default function FriendSection() {
   const { userInfo } = useUser();
 

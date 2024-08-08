@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 
+// Component which holds the content of a single comment.
 export default function Notification({ notification }) {
   return (
     <div className="flex gap-4 items-center py-2 px-1">

@@ -4,6 +4,8 @@ import TodoCard from "./TodoCard";
 import useTodos from "../hooks/useTodos";
 import Loader from "../loaders/Loader";
 
+// Saved todods page where we iterate over our saved todos as "todos" and display each todo with its custom
+// component called TodoCard.
 export default function SavedTodos() {
   const { todos, loading, removeTodo } = useTodos({
     url: "/api/todos/get_saved_todos/",

@@ -1,6 +1,9 @@
 import PropTypes from "prop-types";
 import axios from "axios";
 
+// This component is for adding a new friend by pressing the Send request button after weve found the user
+// we want to send the request.
+
 export default function AddFriendCard({ searchedUser }) {
   const handleSubmit = (searchedUser) => (event) => {
     event.preventDefault();

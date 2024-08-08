@@ -7,6 +7,7 @@ export default function Todos() {
     url: "/api/todos/get_all_todos/",
   });
 
+  // If the todos request it taking time we will display a skeleton component of todos for better UI/UX.
   if (loading)
     return (
       <ul className="list-none grid grid-cols-[repeat(auto-fill,_minmax(300px,_1fr))] gap-4 m-0 h-fit">
@@ -16,6 +17,7 @@ export default function Todos() {
       </ul>
     );
 
+  // Display the todos after the request has been completed.
   return (
     <ul className="list-none grid grid-cols-[repeat(auto-fill,_minmax(300px,_1fr))] gap-4 m-0 h-fit">
       {todos.map((todo) => {

@@ -4,6 +4,7 @@ import TodoCard from "./TodoCard";
 import Loader from "../loaders/Loader";
 import useTodos from "../hooks/useTodos";
 
+// Favorites page where every liked todo by the logged in user is presented and tracked for future view.
 export default function Favorites() {
   const { todos, loading, removeTodo } = useTodos({
     url: "/api/todos/get_liked_todos/",

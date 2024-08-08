@@ -13,6 +13,7 @@ const timeOptions = {
   day: "numeric",
 };
 
+// Component which display each todo information in a card and use the functions it gets (if getting any).
 export default function TodoCard({ todo, onSave, onLike, onDelete }) {
   const [isLiked, setIsLiked] = useState(todo.liked);
   const [isSaved, setIsSaved] = useState(todo.saved);
@@ -26,10 +27,12 @@ export default function TodoCard({ todo, onSave, onLike, onDelete }) {
   const { userInfo } = useUser();
 
   const handleDelete = () => {
+    // Deletes the current Todo.
     if (onDelete) onDelete(todo);
   };
 
   const handleLike = () => {
+    // The onLike method is used for toggling the liked todo from the todos list.
     if (onLike) onLike(todo);
     setIsLiked((prev) => !prev);
     axios.post("/api/todos/like_todo/", {
@@ -38,6 +41,7 @@ export default function TodoCard({ todo, onSave, onLike, onDelete }) {
   };
 
   const handleSave = () => {
+    // The onSave method is used for toggling the saved todo from the todos list.
     if (onSave) onSave(todo);
     setIsSaved((prev) => !prev);
     axios.post("/api/todos/save_todo/", {
@@ -78,6 +82,7 @@ export default function TodoCard({ todo, onSave, onLike, onDelete }) {
         <h3>@{todo.creator.username}</h3>
       </div>
 
+      {/* Showing the delete and edit buttons only if the creator of the todo is the same user whos logged in. */}
       <div className="flex w-full justify-end gap-4">
         <button
           className="min-w-6 bg-color-primary px-2 py-1 rounded-md text-color-white"

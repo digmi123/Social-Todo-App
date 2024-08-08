@@ -3,6 +3,7 @@ import FriendsSearchForm from "../Forms/FriendsSearchForm";
 import AddFriendCard from "../components/AddFriendCard";
 import axios from "axios";
 
+// Component for searching a new friend by username that matches the searched input.
 export default function NewFriendsSearch() {
   const [searchedUsers, setSearchedUsers] = useState([]);
 

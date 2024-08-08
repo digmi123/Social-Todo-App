@@ -5,6 +5,7 @@ import FriendSection from "./FriendsSection";
 import { useParams } from "react-router-dom";
 import Loader from "../loaders/Loader";
 
+// Single todo page where holds the content related to single todo.
 export default function Todo() {
   const { todo_id } = useParams();
   const { todo, loading, addComment } = useTodo({
