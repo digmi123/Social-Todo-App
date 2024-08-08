@@ -48,12 +48,10 @@ def delete_todo(request, pk):
 @authentication_classes([CookieTokenAuthentication])
 @permission_classes([IsAuthenticated])
 def get_all_todos(request):
+    user = request.user
     todos = Todo.objects.all()
-    todosSerializer = TodoSerializer(todos, many=True)
-    data = {
-        "todos": todosSerializer.data,
-    }
-    return Response(data=data, status=status.HTTP_201_CREATED)
+    todosSerializer = TodoSerializer(todos, many=True, context={"user": user})
+    return Response(todosSerializer.data, status=status.HTTP_201_CREATED)
 
 
 @api_view(["GET"])
@@ -113,8 +111,9 @@ def like_todo(request):
 def get_liked_todos(request):
     user = request.user
     liked_todos = Like.objects.filter(user=user)
-    like_serializer = LikeSerializer(liked_todos, many=True)
-    return Response(like_serializer.data, status=status.HTTP_200_OK)
+    like_serializer = LikeSerializer(liked_todos, many=True, context={"user": user})
+    result = map(lambda x: x["todo"], like_serializer.data)
+    return Response(result, status=status.HTTP_200_OK)
 
 
 @api_view(["GET"])
@@ -123,8 +122,9 @@ def get_liked_todos(request):
 def get_saved_todos(request):
     user = request.user
     saved_todos = Saved.objects.filter(user=user)
-    saved_serializer = SavedSerializer(saved_todos, many=True)
-    return Response(saved_serializer.data, status=status.HTTP_200_OK)
+    saved_serializer = SavedSerializer(saved_todos, many=True, context={"user": user})
+    result = map(lambda x: x["todo"], saved_serializer.data)
+    return Response(result, status=status.HTTP_200_OK)
 
 
 @api_view(["PUT"])
