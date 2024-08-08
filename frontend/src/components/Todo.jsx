@@ -3,6 +3,7 @@ import NotificationsBar from "./NotificationsBar";
 import Comments from "./Comments";
 import FriendSection from "./FriendsSection";
 import { useParams } from "react-router-dom";
+import Loader from "../loaders/Loader";
 
 export default function Todo() {
   const { todo_id } = useParams();
@@ -10,7 +11,7 @@ export default function Todo() {
     todoId: todo_id,
   });
 
-  if (loading) return <h1>Loading</h1>;
+  if (loading) return <Loader />;
 
   return (
     <div className="grid grid-cols-[1fr_3fr_1.5fr] sm:grid-cols-[1fr] sm:grid-rows-[1fr] sm:gap-y-4 gap-x-4 p-4 min-h-full">

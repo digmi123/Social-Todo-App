@@ -2,13 +2,14 @@ import { Outlet } from "react-router-dom";
 import SideBar from "./SideBar";
 import TodoCard from "./TodoCard";
 import useTodos from "../hooks/useTodos";
+import Loader from "../loaders/Loader";
 
 export default function SavedTodos() {
   const { todos, loading, removeTodo } = useTodos({
     url: "/api/todos/get_saved_todos/",
   });
 
-  if (loading) return <h1>Loading</h1>;
+  if (loading) return <Loader />;
 
   return (
     <div className="grid grid-cols-[12rem_auto] gap-4 md:grid-cols-[5rem_auto] sm:grid-cols-[1fr] min-h-full p-4">
