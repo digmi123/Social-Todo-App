@@ -17,6 +17,9 @@ export default {
         "color-light": "var(--color-light)",
         "color-dark-variant": "var(--color-dark-variant)",
         "color-background": "var(--color-background)",
+
+        "color-liked": "var(--color-liked)",
+        "color-saved": "var(--color-saved)",
       },
       boxShadow: {
         "box-shadow": "0 2rem 3rem var(--color-light)",
