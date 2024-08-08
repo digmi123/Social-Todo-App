@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
 import SideBar from "./SideBar";
 import TodoCard from "./TodoCard";
-import Loader from "../pages/Loader";
+import Loader from "../loaders/Loader";
 import useTodos from "../hooks/useTodos";
 
 export default function Favorites() {
