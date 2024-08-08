@@ -6,7 +6,7 @@ import FriendRequests from "./FriendRequests";
 import { useUser } from "../providers/UserProvider";
 
 export default function FriendSection() {
-  const { userInfo, loading, error } = useUser();
+  const { userInfo, error } = useUser();
   const [searchedUsers, setSearchedUsers] = useState([]);
 
   const handleSearch = (e) => {
@@ -21,10 +21,8 @@ export default function FriendSection() {
       });
   };
 
-  if (loading) return <h1>Loading</h1>;
-
   return (
-    <aside className="flex flex-col gap-4 bg-color-white shadow-box-shadow rounded-xl p-4">
+    <aside className="max-h-[90vh] sticky top-4 flex flex-col gap-4 bg-color-white shadow-box-shadow rounded-xl p-4">
       <form
         onSubmit={handleSearch}
         className="flex justify-between gap-4 border-2 border-solid border-slate-300 rounded-md shadow-box-shadow px-2 py-1"
