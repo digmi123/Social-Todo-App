@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import axios from "axios";
 import { useRef } from "react";
 import { useParams } from "react-router-dom";
@@ -50,3 +51,8 @@ export default function Comments({ comments, addComment }) {
     </>
   );
 }
+
+Comments.propTypes = {
+  comments: PropTypes.array,
+  addComment: PropTypes.func,
+};

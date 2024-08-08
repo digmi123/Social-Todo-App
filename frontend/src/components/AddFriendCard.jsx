@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import axios from "axios";
 
 export default function AddFriendCard({ searchedUser }) {
@@ -27,3 +28,7 @@ export default function AddFriendCard({ searchedUser }) {
     </form>
   );
 }
+
+AddFriendCard.propTypes = {
+  searchedUser: PropTypes.obj,
+};

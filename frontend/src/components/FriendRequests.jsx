@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { useUser } from "../providers/UserProvider";
 
 export default function FriendRequests({ friend_requests }) {
@@ -38,3 +39,7 @@ export default function FriendRequests({ friend_requests }) {
     </>
   );
 }
+
+FriendRequests.propTypes = {
+  friend_requests: PropTypes.array,
+};
