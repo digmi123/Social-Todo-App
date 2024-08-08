@@ -1,10 +1,12 @@
 import { Outlet } from "react-router-dom";
-import useSavedTodos from "../hooks/useSavedTodos";
 import SideBar from "./SideBar";
 import TodoCard from "./TodoCard";
+import useTodos from "../hooks/useTodos";
 
 export default function SavedTodos() {
-  const { savedTodos, loading } = useSavedTodos();
+  const { todos, loading, removeTodo } = useTodos({
+    url: "/api/todos/get_saved_todos/",
+  });
 
   if (loading) return <h1>Loading</h1>;
 
@@ -14,8 +16,8 @@ export default function SavedTodos() {
       <div className="grid grid-cols-[auto_3fr] sm:grid-rows-[min-content_1fr] sm:grid-cols-[1fr] gap-4 h-full">
         <Outlet />
         <ul className="list-none grid grid-cols-[repeat(auto-fill,_minmax(300px,_1fr))] gap-4 m-0 h-fit">
-          {savedTodos.map((saved) => {
-            return <TodoCard key={saved.todo.id} todo={saved.todo} />;
+          {todos.map((todo) => {
+            return <TodoCard key={todo.id} todo={todo} onSave={removeTodo} />;
           })}
         </ul>
       </div>

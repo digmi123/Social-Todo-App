@@ -1,13 +1,13 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-export default function useTodos() {
+export default function useTodos({ url }) {
   const [loading, setLoading] = useState(true);
   const [todos, setTodos] = useState([]);
 
-  const deleteTodo = (todoId) => {
+  const deleteTodo = (todo) => {
     axios
-      .delete(`/api/todos/delete_todo/${todoId}`)
+      .delete(`/api/todos/delete_todo/${todo.id}`)
       .then((response) => {
         console.log(response.data);
       })
@@ -15,14 +15,18 @@ export default function useTodos() {
         console.log(error);
       });
 
-    setTodos((prev) => prev.filter((todo) => todo.id !== todoId));
+    removeTodo(todo);
+  };
+
+  const removeTodo = (todo) => {
+    setTodos((prev) => prev.filter((currTodo) => currTodo.id !== todo.id));
   };
 
   useEffect(() => {
     axios
-      .get("/api/todos/get_all_todos/")
+      .get(url)
       .then((response) => {
-        setTodos(response.data.todos);
+        setTodos(response.data);
       })
       .catch((error) => {
         console.log(error);
@@ -30,7 +34,7 @@ export default function useTodos() {
       .finally(() => {
         setLoading(false);
       });
-  }, []);
+  }, [url]);
 
-  return { loading, todos, deleteTodo };
+  return { loading, todos, deleteTodo, removeTodo };
 }
