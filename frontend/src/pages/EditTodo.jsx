@@ -2,7 +2,7 @@ import axios from "axios";
 import { Outlet, useNavigate, useParams } from "react-router-dom";
 import SideBar from "../components/SideBar";
 import useTodo from "../hooks/useTodo";
-import Loader from "./Loader";
+import Loader from "../loaders/Loader";
 
 export default function EditTodo() {
   const navigate = useNavigate();

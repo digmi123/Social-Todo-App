@@ -3,7 +3,7 @@ import { useCallback, useEffect, useState } from "react";
 import { createContext, useContext } from "react";
 import { Outlet } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import Loader from "../pages/Loader";
+import Loader from "../loaders/Loader";
 
 const UserContext = createContext();
 
