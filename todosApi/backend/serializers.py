@@ -39,12 +39,35 @@ class CommentSerializer(serializers.ModelSerializer):
 
 
 class TodoSerializer(serializers.ModelSerializer):
+    liked = serializers.SerializerMethodField()  # Defines a method field
+    saved = serializers.SerializerMethodField()  # Defines a method field
     creator = UserSerializer(read_only=True)
     comments = CommentSerializer(many=True, read_only=True)
 
     class Meta:
         model = Todo
-        fields = "__all__"
+        fields = [
+            "id",
+            "todo_title",
+            "todo_description",
+            "pub_date",
+            "creator",
+            "comments",
+            "liked",
+            "saved",
+        ]
+
+    def get_liked(self, obj):
+        # This method is automatically called for each Todo instance
+        user = self.context.get("user", None)
+        # Checks if there is a Like instance for this user and Todo
+        return Like.objects.filter(user=user, todo=obj).exists()
+
+    def get_saved(self, obj):
+        # This method is automatically called for each Todo instance
+        user = self.context.get("user", None)
+        # Checks if there is a Like instance for this user and Todo
+        return Saved.objects.filter(user=user, todo=obj).exists()
 
     def create(self, validated_data):
         validated_data["creator"] = self.context["request"].user
@@ -52,12 +75,19 @@ class TodoSerializer(serializers.ModelSerializer):
 
 
 class LikeSerializer(serializers.ModelSerializer):
-    user = UserSerializer(read_only=True)
-    todo = TodoSerializer(read_only=True)
 
     class Meta:
         model = Like
-        fields = "__all__"
+        fields = [
+            "id",
+            "is_read",
+            "created_at",
+            "todo",
+            "user",
+        ]
+
+    user = UserSerializer(read_only=True)
+    todo = TodoSerializer(read_only=True)
 
     def create(self, validated_data):
         validated_data["user"] = self.context["request"].user
@@ -65,12 +95,18 @@ class LikeSerializer(serializers.ModelSerializer):
 
 
 class SavedSerializer(serializers.ModelSerializer):
-    user = UserSerializer(read_only=True)
-    todo = TodoSerializer(read_only=True)
-
     class Meta:
         model = Saved
-        fields = "__all__"
+        fields = [
+            "id",
+            "is_read",
+            "created_at",
+            "todo",
+            "user",
+        ]
+
+    user = UserSerializer(read_only=True)
+    todo = TodoSerializer(read_only=True)
 
     def create(self, validated_data):
         validated_data["user"] = self.context["request"].user
