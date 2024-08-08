@@ -59,7 +59,7 @@ export default function TodoCard({ todo, onSave, onLike, onDelete }) {
           <a href={`/todo/${todo.id}`}> {todo.todo_title}</a>
         </h2>
         <div className="flex gap-1">
-          <label>
+          <label className="cursor-pointer">
             <input type="checkbox" hidden name="like" onChange={handleLike} />
             <Heart
               fill={isLiked ? "var(--color-liked)" : "#ffffff"}
@@ -67,7 +67,7 @@ export default function TodoCard({ todo, onSave, onLike, onDelete }) {
             />
           </label>
 
-          <label>
+          <label className="cursor-pointer">
             <input type="checkbox" hidden name="like" onChange={handleSave} />
             <Bookmark
               fill={isSaved ? "var(--color-saved)" : "#ffffff"}
