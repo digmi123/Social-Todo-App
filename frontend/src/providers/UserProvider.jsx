@@ -1,11 +1,16 @@
 import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
 import { createContext, useContext } from "react";
+import { Outlet } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import Loader from "../pages/Loader";
 
 const UserContext = createContext();
 
-export default function UserProvider({ children }) {
+export default function UserProvider() {
+  const navigate = useNavigate();
   const [userInfo, setUserInfo] = useState({
+    user: {},
     friend_requests: [],
     friends: [],
   });
@@ -19,7 +24,6 @@ export default function UserProvider({ children }) {
       })
       .catch((error) => {
         console.log(error);
-        setUserInfo(userInfo);
       });
 
     setUserInfo((prev) => {
@@ -41,22 +45,25 @@ export default function UserProvider({ children }) {
       })
       .catch((error) => {
         setError(true);
-        console.log(error);
+        console.error(error);
+        if (error.response.status === 403) {
+          navigate("/auth/login");
+        }
       })
       .finally(() => {
         setLoading(false);
       });
-  }, []);
+  }, [navigate]);
 
   useEffect(() => {
     getUserInfo();
   }, [getUserInfo]);
 
+  if (loading) return <Loader />;
+
   return (
-    <UserContext.Provider
-      value={{ userInfo, loading, error, acceptFriendRequest }}
-    >
-      {children}
+    <UserContext.Provider value={{ userInfo, error, acceptFriendRequest }}>
+      <Outlet />
     </UserContext.Provider>
   );
 }
