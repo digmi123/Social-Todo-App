@@ -1,4 +1,5 @@
 import { useUser } from "../providers/UserProvider";
+import Notification from "./Notification";
 
 export default function NotificationsBar() {
   const { userInfo } = useUser();
@@ -11,16 +12,7 @@ export default function NotificationsBar() {
             key={notification.id}
             className="flex items-center justify-between gap-4 rounded-md p-2 border-2 border-solid border-slate-200 shadow-box-shadow"
           >
-            <div className="flex gap-4 items-center py-2 px-1">
-              <span className="material-icons-sharp">account_circle</span>
-              {notification.message ? (
-                <p>
-                  {`${notification.user.email} commented on your post "${notification.message}"`}
-                </p>
-              ) : (
-                <p>{notification.user.email} liked your post</p>
-              )}
-            </div>
+            <Notification notification={notification} />
           </div>
         );
       })}
