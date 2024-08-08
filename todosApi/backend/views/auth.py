@@ -41,12 +41,15 @@ def signin(request):
 
 @api_view(["POST"])
 def logout(request):
-    response.delete_cookie("name")
-    if serializer.is_valid():
-        print("valid")
-        serializer.save()
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
-    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    response = Response(
+        data={"message": "User logged out successfully"},
+        status=status.HTTP_200_OK,
+    )
+    response.set_cookie(
+        key="auth_token",
+        value="",
+    )
+    return response
 
 
 @api_view(["POST"])
