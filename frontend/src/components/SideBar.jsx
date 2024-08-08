@@ -1,11 +1,5 @@
-// import { useState } from "react";
 import axios from "axios";
-import { Link, NavLink, useLocation } from "react-router-dom";
-
-const handleLogout = () => {
-  console.log("logout");
-  // axios.post("/api/auth/logout/");
-};
+import { NavLink } from "react-router-dom";
 
 const menuItems = [
   {
@@ -43,8 +37,12 @@ const menuItems = [
 export default function SideBar() {
   // const [active, setActive] = useState(0);
 
+  const handleLogout = () => {
+    axios.post("/api/auth/logout/");
+  };
+
   return (
-    <aside className="flex flex-col justify-between bg-color-white shadow-box-shadow rounded-xl h-full top-6 ease-in duration-300">
+    <aside className="sticky top-4 max-h-[90vh] flex flex-col justify-between bg-color-white shadow-box-shadow rounded-xl h-full ease-in duration-300">
       <div className="flex flex-col hover:shadow-none cursor-pointer">
         {menuItems.map((menuItem) => {
           return (
