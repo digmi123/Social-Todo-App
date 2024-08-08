@@ -1,12 +1,10 @@
 import { useUser } from "../providers/UserProvider";
 
 export default function NotificationsBar() {
-  const { loading, userInfo } = useUser();
-
-  if (loading) return <h1>Loading</h1>;
+  const { userInfo } = useUser();
 
   return (
-    <aside className="flex flex-col gap-4 rounded-md bg-color-white shadow-box-shadow p-4 max-w-96">
+    <aside className="max-h-[90vh] sticky top-4 flex flex-col gap-4 rounded-md bg-color-white shadow-box-shadow p-4">
       {userInfo.notifications?.map((notification) => {
         return (
           <div
