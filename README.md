@@ -15,13 +15,15 @@ where you can see your friends list search for new friends and add them.
 
 ##### Home page:
 
-![1721214953577](image/README/1721214953577.png)
+![1725876110674](image/README/1725876110674.png)
 
 ##### Single todo page:
 
 On the left side you can see the friends bar where you cann see your friends search for new users and add friends.
 
-![1721214975353](image/README/1721214975353.png)
+![1725876171072](image/README/1725876171072.png)
+
+##### Edit existing todo
 
 ##### Create todo page:
 
